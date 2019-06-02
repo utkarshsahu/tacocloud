@@ -3,6 +3,7 @@ package tacos;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -32,12 +33,13 @@ public class OrderController {
 	
 	@PostMapping
 	public String processOrder(@Valid @ModelAttribute("order") Order order, Errors errors, 
-								SessionStatus status) {
+								SessionStatus status, @AuthenticationPrincipal User user) {
 		if(errors.hasErrors()) {
 			log.info(errors.getAllErrors().toString());
 			return "orderForm";
 		}
 		log.info(order.toString());
+		order.setUser(user);
 		orderRepo.save(order);
 		status.setComplete();
 		log.info("Order submitted: " + order);

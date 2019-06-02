@@ -63,5 +63,8 @@ name="ingredients" type="checkbox" th:value="${ingredient.id}"
       <button>Submit your taco</button>
       </div>
     </form>
+    <form method="POST" th:action="@{/logout}">
+		<input type="submit" value="Logout"/>
+	</form>
   </body>
 </html>
