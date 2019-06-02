@@ -19,7 +19,7 @@ import tacos.Taco;
 
 @Slf4j
 @Repository
-public class JdbcTacoRepository implements TacoRepository {
+public class JdbcTacoRepository {
 
 	private JdbcTemplate jdbc;
 	
@@ -30,7 +30,7 @@ public class JdbcTacoRepository implements TacoRepository {
 		this.jdbc = jdbc;
 	}
 	
-	@Override
+	/*@Override
 	public Taco save(Taco taco) {
 		long tacoId = saveTacoInfo(taco);
 		taco.setId(tacoId);
@@ -41,9 +41,9 @@ public class JdbcTacoRepository implements TacoRepository {
 		}
 		
 		return taco;
-	}
+	}*/
 
-	private long saveTacoInfo(Taco taco) {
+	/*private long saveTacoInfo(Taco taco) {
 	    taco.setCreatedAt(new Date());
 	    PreparedStatementCreatorFactory pscf = new PreparedStatementCreatorFactory(
 	            "insert into Taco (name, createdAt) values (?, ?)",
@@ -66,5 +66,5 @@ public class JdbcTacoRepository implements TacoRepository {
 	        "insert into Taco_Ingredients (taco, ingredient) " +
 	        "values (?, ?)",
 	        tacoId, ingredient.getId());
-	  }
+	  }*/
 }

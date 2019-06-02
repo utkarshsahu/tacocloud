@@ -18,7 +18,7 @@ import tacos.Taco;
 
 @Slf4j
 @Repository
-public class JdbcOrderRepository implements OrderRepository {
+public class JdbcOrderRepository {
 
 	private SimpleJdbcInsert orderInserter;
 	private SimpleJdbcInsert orderTacoInserter;
@@ -31,7 +31,7 @@ public class JdbcOrderRepository implements OrderRepository {
 		this.objectMapper = new ObjectMapper();
 	}
 	
-	@Override
+	/*@Override
 	public Order save(Order order) {
 		order.setPlacedAt(new Date());
 		long orderId = saveOrderDetails(order);
@@ -41,7 +41,7 @@ public class JdbcOrderRepository implements OrderRepository {
 			saveTacosToOrder(taco, orderId);
 		}
 		return order;
-	}
+	}*/
 
 	private void saveTacosToOrder(Taco taco, long orderId) {
 		Map<String, Object> values = new HashMap<>();
@@ -53,6 +53,7 @@ public class JdbcOrderRepository implements OrderRepository {
 	private long saveOrderDetails(Order order) {
 		log.info(order.toString());
 		Map<String, Object> values = objectMapper.convertValue(order, Map.class);
+		log.info(values.toString());
 		values.put("placedAt", order.getPlacedAt());
 		long orderId = orderInserter.executeAndReturnKey(values).longValue();
 		return orderId;

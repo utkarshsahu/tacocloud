@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.extern.slf4j.Slf4j;
 import tacos.Ingredient.Type;
 import tacos.data.IngredientRepository;
@@ -33,6 +35,8 @@ public class DesignTacoController {
 	
 	@Autowired
 	private TacoRepository designRepo;
+	
+	private ObjectMapper objectMapper;
 	
 	@ModelAttribute(name = "order")
 	public Order order() {
@@ -76,7 +80,8 @@ public class DesignTacoController {
 								@ModelAttribute(value = "design") @Valid Taco design,
 								 Errors errors) {
 		if(errors.hasErrors()) {
-			return "design";
+			log.info("errors");
+			return "redirect:/design";
 		}
 		
 		log.info("Processing design: " + design);
